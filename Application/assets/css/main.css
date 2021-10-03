@@ -1,0 +1,53 @@
+/*PRECISA*/
+
+.mainDivEasy {
+  width: 60%;
+  border: solid;
+  margin: 0 auto;
+}
+
+.face-img {
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  width: 150px;
+  height: 200px;
+  perspective: 10000px;
+  float: left;
+}
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.card__face--back {
+  background-color: var(--light);
+  transform: rotateY(180deg);
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.py-5 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+
+div {
+    border-style: solid;
+}
