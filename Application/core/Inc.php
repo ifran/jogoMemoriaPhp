@@ -1,11 +1,6 @@
 <?php 
-    include ('Const.php');
-    include '../autoload.php';
+    include('Const.php');
     
-    $oCon = new Database();
-    $oReturn = $oCon->query("SELECT * FROM carta");
-
-    while ($linha = $oReturn->fetch(PDO::FETCH_ASSOC)) {
-        echo "Nome: {$linha['carta_img']} - Usuário: {$linha['carta_img']}<br />";
-    }
+    // No local atual da pasta
+    include('Database.php');
 ?>

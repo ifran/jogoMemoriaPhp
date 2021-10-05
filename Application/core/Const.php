@@ -1,6 +1,6 @@
 <?php 
     // Caminho para aplicacao
-    DEFINE('GAME_PATH'            , 'http://localhost/Jogo/');
+    DEFINE('GAME_PATH'            , 'http://127.0.0.1/Jogo/');
     
     DEFINE('GAME_PATH_APP'        , GAME_PATH . 'Application/');
     DEFINE('GAME_PATH_CORE'       , GAME_PATH_APP . 'core/');

@@ -1,7 +1,17 @@
 <?php 
-    include('../Application/core/Const.php');
-    include('http://localhost/Jogo/Application/core/Inc.php');
-    echo 'INDEx' . GAME_PATH_CSS . '<br>';
+    include('Application/core/Inc.php');
+    
+    $oCon = new Database();
+    $aRetorno = $oCon->selectQuery('SELECT DISTINCT carta_img, carta_id FROM carta ORDER BY RAND() LIMIT 0,9');
+    
+    $aImagem = array();
+    for ($i=1;$i<=2;$i++) {
+        foreach ($aRetorno as $oItem) {
+            $aImagem[] = $oItem;
+        }
+    }
+    
+    shuffle($aImagem);
 ?>
 <!doctype html>
 <html lang="pt">
@@ -14,11 +24,14 @@
         <title>Decora essa porra</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?=GAME_PATH_CSS?>bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="<?=GAME_PATH_CSS?>main.css" />
+        <link href="public/assets/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="public/assets/css/main.css" />
 
         <style>
-            .card__inner1 {
+            <?php 
+            $iLinha = 1;
+            foreach ($aImagem as $oItem) { ?>
+            .card__inner<?=$iLinha?> {
                 width: 100%;
                 height: 100%;
                 transition: transform 1s;
@@ -27,48 +40,10 @@
                 position: relative;
             }
 
-            .card__inner1.is-flipped {
+            .card__inner<?=$iLinha?>.is-flipped {
                 transform: rotateY(180deg);
             }
-
-            .card__inner2 {
-                width: 100%;
-                height: 100%;
-                transition: transform 1s;
-                transform-style: preserve-3d;
-                cursor: pointer;
-                position: relative;
-            }
-
-            .card__inner2.is-flipped {
-                transform: rotateY(180deg);
-            }
-
-            .card__inner3 {
-                width: 100%;
-                height: 100%;
-                transition: transform 1s;
-                transform-style: preserve-3d;
-                cursor: pointer;
-                position: relative;
-            }
-
-            .card__inner3.is-flipped {
-                transform: rotateY(180deg);
-            }
-
-            .card__inner4 {
-                width: 100%;
-                height: 100%;
-                transition: transform 1s;
-                transform-style: preserve-3d;
-                cursor: pointer;
-                position: relative;
-            }
-
-            .card__inner4.is-flipped {
-                transform: rotateY(180deg);
-            }
+            <?php $iLinha++; } ?>
         </style>
     </head>
     <body>
@@ -105,60 +80,27 @@
         <main>
             <div class="album py-5 bg-light mainDivEasy">
                 <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+                    <div class="row row-cols-2 row-cols-sm-5 row-cols-md-5 g-3">
                         
-                        <div class="col" onclick="flipCard(1, 1)">
+                        <?php 
+                        $iLinha = 1;
+                        foreach ($aImagem as $oItem) { ?>
+                        <div class="col" onclick="flipCard(<?=$iLinha?>, <?=$oItem['carta_id']?>)">
                             <div class="card shadow-sm">
-                                <div class="card__inner1">
+                                <div class="card__inner<?=$iLinha?>">
                                     <div class="card__face card__face--front">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/back.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
+                                        <img src="<?=GAME_PATH_IMG_DB?>back.jpg" class="face-img bd-placeholder-img card-img-top oBack" width="100%" height="225">
                                     </div>
                                     <div class="card__face card__face--back">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/front.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
+                                        <img src="<?=GAME_PATH_IMG_DB?><?=$oItem['carta_img']?>" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col" onclick="flipCard(2, 2)">
-                            <div class="card shadow-sm">
-                                <div class="card__inner2">
-                                    <div class="card__face card__face--front">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/back.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
-                                    </div>
-                                    <div class="card__face card__face--back">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/front.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col" onclick="flipCard(3, 1)">
-                            <div class="card shadow-sm">
-                                <div class="card__inner3">
-                                    <div class="card__face card__face--front">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/back.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
-                                    </div>
-                                    <div class="card__face card__face--back">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/front.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" onclick="flipCard(4, 2)">
-                            <div class="card shadow-sm">
-                                <div class="card__inner4">
-                                    <div class="card__face card__face--front">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/back.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
-                                    </div>
-                                    <div class="card__face card__face--back">
-                                        <img src="<?=GAME_PATH_IMG_DB?>/front.jpg" class="face-img bd-placeholder-img card-img-top" width="100%" height="225">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        <?php 
+                        $iLinha++;
+                        } ?>
+                        <input id="iNumCartas" value="<?=$iLinha-1?>" type="hidden">
                     </div>
                 </div>
             </div>
@@ -167,7 +109,8 @@
             <input type="file" name="carta_nova">
             <input type="submit" values="Enviar">
         </form>
-        <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+        <button onclick="earthPower()">Poder de terra</button>
+        <script src="public/assets/js/bootstrap.bundle.min.js"></script>
         <script>
             var iParTodo = 0;
             var iCartasViradas = 0;
@@ -264,6 +207,23 @@
                 var fiveMinutes = 600 * 1,
                 display = document.querySelector('#time');
                 startTimer(fiveMinutes, display);
+            }
+
+            function earthPower() { // show cards
+                
+                iLinha = document.getElementById('iNumCartas').value;
+                for (i = 1; i <= iLinha; i++) {
+                    var card = document.querySelector(".card__inner"+i);
+                    card.classList.toggle('is-flipped');
+                }
+
+                setTimeout (function()
+                {
+                    for (i = 1; i <= iLinha; i++) {
+                        var card = document.querySelector(".card__inner"+i);
+                        card.classList.toggle('is-flipped');
+                    }
+                }, 1500);
             }
         </script>
     </body>

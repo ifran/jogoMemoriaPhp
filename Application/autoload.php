@@ -1,3 +1,4 @@
 <?php
-    include('core/Database.php');
+    echo 'autoload.php<br>';
+    
 ?>
