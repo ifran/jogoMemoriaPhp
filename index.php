@@ -2,7 +2,7 @@
     include('Application/core/Inc.php');
     
     $oCon = new Database();
-    $aRetorno = $oCon->selectQuery('SELECT DISTINCT carta_img, carta_id FROM carta ORDER BY RAND() LIMIT 0,9');
+    $aRetorno = $oCon->selectQuery('SELECT DISTINCT carta_img, carta_id FROM carta ORDER BY RAND() LIMIT 0,5');
     
     $aImagem = array();
     for ($i=1;$i<=2;$i++) {
@@ -28,10 +28,7 @@
         <link rel="stylesheet" href="public/assets/css/main.css" />
 
         <style>
-            <?php 
-            $iLinha = 1;
-            foreach ($aImagem as $oItem) { ?>
-            .card__inner<?=$iLinha?> {
+            .card__inner {
                 width: 100%;
                 height: 100%;
                 transition: transform 1s;
@@ -40,10 +37,9 @@
                 position: relative;
             }
 
-            .card__inner<?=$iLinha?>.is-flipped {
+            .card__inner.is-flipped {
                 transform: rotateY(180deg);
             }
-            <?php $iLinha++; } ?>
         </style>
     </head>
     <body>
@@ -87,7 +83,7 @@
                         foreach ($aImagem as $oItem) { ?>
                         <div class="col" onclick="flipCard(<?=$iLinha?>, <?=$oItem['carta_id']?>)">
                             <div class="card shadow-sm">
-                                <div class="card__inner<?=$iLinha?>">
+                                <div class="card__inner card__inner<?=$iLinha?>">
                                     <div class="card__face card__face--front">
                                         <img src="<?=GAME_PATH_IMG_DB?>back.jpg" class="face-img bd-placeholder-img card-img-top oBack" width="100%" height="225">
                                     </div>
@@ -110,7 +106,6 @@
             <input type="submit" values="Enviar">
         </form>
         <button onclick="earthPower()">Poder de terra</button>
-        <script src="public/assets/js/bootstrap.bundle.min.js"></script>
         <script>
             var iParTodo = 0;
             var iCartasViradas = 0;
@@ -226,5 +221,6 @@
                 }, 1500);
             }
         </script>
+        <script src="public/assets/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
