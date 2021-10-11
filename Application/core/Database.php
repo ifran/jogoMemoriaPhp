@@ -3,15 +3,15 @@
     {
         function __construct() 
         {
-            parent::__construct('mysql:host=localhost;dbname=memory', 'root', '');
+            parent::__construct(DB_SGBD . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
         }
 
         function executeQuery($sSql) 
         {
-            $this->exec('INSERT INTO carta (carta_img) VALUES (666)');
+            $this->exec($sSql);
         }
 
-        function selectQuery($sSql) 
+        function select($sSql) 
         {
             $oReturn = $this->query($sSql);
             
