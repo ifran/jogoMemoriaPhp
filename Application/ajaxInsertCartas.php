@@ -1,8 +1,12 @@
 <?php 
     include('../Application/core/Inc.php');
 
+    if (isset($_GET['iNivel'])) {
+        $iNivel = $_GET['iNivel'];
+    }
+
     $oCarta = new Carta();
-    $aImagem = $oCarta->selectCartas(1);
+    $aImagem = $oCarta->selectCartas($iNivel);
 
     $iLinha = 1;
     $sDivReturn = '';

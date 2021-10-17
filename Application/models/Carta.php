@@ -37,10 +37,12 @@
             $aNivel = $this->nivelValor($iNivel);
             $sLimit = $aNivel['sLimit'];
 
-            $aRetorno = parent::select('SELECT DISTINCT carta_img, carta_id 
-                                        FROM carta 
-                                        ORDER BY RAND() 
-                                        LIMIT ' . $sLimit);
+            $sSql = 'SELECT DISTINCT carta_img, carta_id 
+                    FROM carta 
+                    ORDER BY RAND() 
+                    LIMIT ' . $sLimit;
+            
+            $aRetorno = parent::select($sSql);
 
             $aImagem = array();
             for ($i=1;$i<=2;$i++) {

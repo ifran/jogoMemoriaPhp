@@ -1,1 +1,10 @@
 php_flag allow_url_include on
+
+RewriteEngine on
+
+ReWriteRule ^Home$ index.php [NC]
+ReWriteRule ^Game index.php?sPage=Game [NC]
+ReWriteRule ^Settings index.php?sPage=Settings [NC]
+ReWriteRule ^Ranking index.php?sPage=Ranking [NC]
+
+ErrorDocument 404 http://localhost/Jogo/

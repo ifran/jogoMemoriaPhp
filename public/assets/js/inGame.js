@@ -5,12 +5,6 @@ var iNumCardOld = 0;
 var iCartasViradas = 0; // Verificando se ja tem alguma carta virada
 var aParCorreto = []; // Total de pares encontrados
 
-// funcao geral
-function _$(iId) 
-{
-    return document.getElementById(iId);
-}
-
 /****************************
 * Funcao para virar cartas 
 ****************************/
@@ -89,70 +83,51 @@ function checkPares(iCard, iPar)
     }
 }
 
+function loseGame() 
+{
+    iPersonagem = _$('iPersonagem').value;
+    iNivel      = _$('iNivel').value;
+
+    ajaxRequest('ajaxSavePoints.php?bLose=1&iNivel=' + iNivel + '&iPersonagem=' + iPersonagem, 'oPontuacao');
+    alert("Perdeu");
+}
+
+function createProgressbar(id, duration, callback) 
+{    
+    if (_$('lixo')) {
+        _$('lixo').remove();
+    }
+    var progressbar = document.getElementById(id);
+    progressbar.className = 'progressbar';
+  
+    var progressbarinner = document.createElement('div');
+    progressbarinner.className = 'inner';
+    progressbarinner.setAttribute("id", "lixo");
+    
+    progressbarinner.style.animationDuration = duration;
+    
+    if (typeof(callback) === 'function') {
+      progressbarinner.addEventListener('animationend', callback);
+    }
+    
+    progressbar.appendChild(progressbarinner);
+    progressbarinner.style.animationPlayState = 'running';
+}
+
 function winGame()
 {
     aParCorreto = [];
+    ajaxRequest('ajaxSavePoints.php', 'oPontuacao');
     startGame();
 }
 
-function earthPower() {
+function startGame() 
+{
+    iDuration = _$('iDuration').value;
+    sUrl = 'ajaxInsertCartas.php?iNivel=' + _$('iNivel').value;
+    ajaxRequest(sUrl, 'oDivPrinc');
 
-    oFront = document.getElementsByClassName('oFront');
-    
-    for (i = 0; i < oFront.length; i++) {
-        oFront[i].style.display = '';
-    }
-    
-    iLinha = document.getElementById('iNumCartas').value;
-    for (i = 1; i <= iLinha; i++) {
-        var card = document.querySelector(".card__inner"+i);
-        card.classList.toggle('is-flipped');
-    }
-
-    setTimeout (function()
-    {
-        for (i = 1; i <= iLinha; i++) {
-            var card = document.querySelector(".card__inner"+i);
-            card.classList.toggle('is-flipped');
-        }
-    }, 1500);
-}
-
-function createProgressbar(id, duration, callback) {
-    var progressbar = document.getElementById(id);
-    
-    sDiv = '<div class="inner" style="animation-duration: ' + duration + 's; animation-play-state: running;"></div>';
-
-    // Mostrando na div atual
-    progressbar.innerHTML = sDiv;
-
-    // Startando
-    // progressbarinner.style.animationPlayState = 'running';
-}
-
-function startGame() {
-    oBtnStart = _$('oBtnStart');
-    //oBtnStart.disabled = 'true';
-
-    var xmlhttp = new XMLHttpRequest();
-    var url = "public/ajaxInsertCartas.php";
-  
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (this.responseText == '') {
-          alert('lightGreen');
-        } else {
-          // alert('Erro ao salvar!\n\n'+this.responseText);
-          sDiv = this.responseText;
-          _$('oDivPrinc').innerHTML = sDiv;
-        }
-      }
-    };
-  
-    xmlhttp.open("GET", url , true);
-    xmlhttp.send();
-
-    createProgressbar('progressbar1', '10', function() {
-
+    createProgressbar('progressbar1', iDuration + 's', function() {
+        loseGame();
     });
 }

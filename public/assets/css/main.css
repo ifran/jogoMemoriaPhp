@@ -1,32 +1,88 @@
 /*PRECISA*/
 
+.bgBlack {
+    background-color: #000;
+}
+
+#menu {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.pulseImg {
+    animation: pulse 1s infinite;
+    margin: 0 auto;
+    display: table;
+    margin-top: 50px;
+    animation-direction: alternate;
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+  
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale(1);
+        -webkit-filter: brightness(100%);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        -webkit-filter: brightness(120%);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        filter: brightness(100%);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(150%);
+    }
+}
+
+.mainDiv {
+    width: 60%;
+    border: solid;
+    margin: 0 auto;
+}
+
+.rankingDiv {
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
 .mainDivEasy {
-  width: 60%;
-  border: solid;
-  margin: 0 auto;
+    width: 60%;
+    border: solid;
+    margin: 0 auto;
 }
 
 .face-img {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .card {
-  width: 150px;
-  height: 200px;
-  perspective: 10000px;
-  float: left;
+    width: 150px;
+    height: 200px;
+    perspective: 10000px;
+    float: left;
 }
 
 .card__face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .card__face--back {
-  background-color: var(--light);
-  transform: rotateY(180deg);
+    background-color: var(--light);
+    transform: rotateY(180deg);
 }
 
 .bd-placeholder-img {
@@ -46,10 +102,6 @@
 .py-5 {
     padding-top: 1rem!important;
     padding-bottom: 1rem!important;
-}
-
-div {
-    border-style: solid;
 }
 
 .progressbar {
@@ -82,4 +134,14 @@ div {
         width: 0%;
         background: #F00;
     }
+}
+
+.imgOption {
+    filter: grayscale(100%);
+    width: 30%;
+}
+
+.imgOptionNivel {
+    filter: grayscale(100%);
+    width: 60%;
 }

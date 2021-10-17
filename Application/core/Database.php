@@ -17,7 +17,6 @@
             
             $aRetorno = array();
             while ($linha = $oReturn->fetch(PDO::FETCH_ASSOC)) {
-                // echo "Nome: {$linha['carta_img']} - Usuário: {$linha['carta_img']}<br />";
                 $aRetorno[] = $linha;
             }
 
