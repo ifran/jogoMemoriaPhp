@@ -50,7 +50,7 @@
     .card__inner<?=$iLinha?>.is-flipped {
         transform: rotateY(180deg);
     }
-    <?php $iLinha++; } ?>
+    <?php $iLinha++; } ?> 
 </style>
 <div class="album py-5 bg-light mainDivEasy bgBlack">
     <h1 style="color:black"><?=$sNivel?></h1>
@@ -69,4 +69,3 @@
 <input type="hidden" value=<?=$iNivel?> id="iNivel">
 <input type="hidden" value=<?=$iDuration?> id="iDuration">
 <script src="<?=GAME_PATH_JS?>inGame.js?v=<?=$iV?>" type="text/javascript"></script>
-<script src="<?=GAME_PATH_JS?>gameplay.js?v=<?=$iV?>" type="text/javascript"></script>

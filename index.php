@@ -2,6 +2,8 @@
     header('Content-Type: text/html; charset=utf-8');
     include('Application/core/Inc.php');
     $iV = rand(1000,2000);
+
+    echo Nivel::Points(1);
 ?>
 <!doctype html>
 <html lang="en" class="h-100">

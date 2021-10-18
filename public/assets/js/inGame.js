@@ -5,9 +5,7 @@ var iNumCardOld = 0;
 var iCartasViradas = 0; // Verificando se ja tem alguma carta virada
 var aParCorreto = []; // Total de pares encontrados
 
-/****************************
-* Funcao para virar cartas 
-****************************/
+// Funcao para virar cartas 
 function flipCard(iCard, iPar) 
 {
     oFront = document.getElementsByClassName('oFront');
@@ -41,6 +39,7 @@ function flipCard(iCard, iPar)
     }
 }
 
+// Caso os pares escolhidos estiverem errados
 function cartasErradas(iCard) 
 {
     setTimeout (function()
@@ -58,6 +57,7 @@ function cartasErradas(iCard)
     }, 700);
 }
 
+// Verificando pares selecionados
 function checkPares(iCard, iPar) 
 {
     if (iParTodo == 0)
@@ -83,15 +83,7 @@ function checkPares(iCard, iPar)
     }
 }
 
-function loseGame() 
-{
-    iPersonagem = _$('iPersonagem').value;
-    iNivel      = _$('iNivel').value;
-
-    ajaxRequest('ajaxSavePoints.php?bLose=1&iNivel=' + iNivel + '&iPersonagem=' + iPersonagem, 'oPontuacao');
-    alert("Perdeu");
-}
-
+// Criando barra de timer
 function createProgressbar(id, duration, callback) 
 {    
     if (_$('lixo')) {
@@ -114,6 +106,7 @@ function createProgressbar(id, duration, callback)
     progressbarinner.style.animationPlayState = 'running';
 }
 
+// Reiniciando jogo, apos vencer
 function winGame()
 {
     aParCorreto = [];
@@ -121,6 +114,17 @@ function winGame()
     startGame();
 }
 
+// Fim de jogo
+function loseGame() 
+{
+    iPersonagem = _$('iPersonagem').value;
+    iNivel      = _$('iNivel').value;
+
+    ajaxRequest('ajaxSavePoints.php?bLose=1&iNivel=' + iNivel + '&iPersonagem=' + iPersonagem, 'oPontuacao');
+    alert("Perdeu");
+}
+
+// Iniciando jogo
 function startGame() 
 {
     iDuration = _$('iDuration').value;
@@ -130,4 +134,55 @@ function startGame()
     createProgressbar('progressbar1', iDuration + 's', function() {
         loseGame();
     });
+}
+
+window.startGame();
+
+/**********************
+ * Criando poderes INI 
+***********************/
+function earthPower() 
+{
+    oFront = document.getElementsByClassName('oFront');
+    
+    for (i = 0; i < oFront.length; i++) {
+        oFront[i].style.display = '';
+    }
+    
+    iLinha = document.getElementById('iNumCartas').value;
+    for (i = 1; i <= iLinha; i++) {
+        var card = document.querySelector(".card__inner"+i);
+        card.classList.toggle('is-flipped');
+    }
+
+    setTimeout (function()
+    {
+        for (i = 1; i <= iLinha; i++) {
+            var card = document.querySelector(".card__inner"+i);
+            card.classList.toggle('is-flipped');
+        }
+    }, 1500);
+}
+
+function firePower() 
+{
+    oFront = document.getElementsByClassName('oFront');
+    
+    for (i = 0; i < oFront.length; i++) {
+        oFront[i].style.display = '';
+    }
+    
+    iLinha = document.getElementById('iNumCartas').value;
+    for (i = 1; i <= iLinha; i++) {
+        var card = document.querySelector(".card__inner"+i);
+        card.classList.toggle('is-flipped');
+    }
+
+    setTimeout (function()
+    {
+        for (i = 1; i <= iLinha; i++) {
+            var card = document.querySelector(".card__inner"+i);
+            card.classList.toggle('is-flipped');
+        }
+    }, 1500);
 }
