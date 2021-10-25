@@ -56,8 +56,19 @@
     margin-bottom: 15px;
 }
 
-.mainDivEasy {
-    width: 60%;
+.mainDivFacil {
+    width: 315px;
+    border: solid;
+    margin: 0 auto;
+}
+
+.mainDivMedio {
+    width: 700px;
+    border: solid;
+    margin: 0 auto;
+}
+
+.mainDivDificil {
     border: solid;
     margin: 0 auto;
 }
@@ -113,22 +124,17 @@
 .progressbar .inner {
     height: 15px;
     animation: progressbar-countdown;
-    /* Placeholder, this will be updated using javascript */
     animation-duration: 40s;
-    /* We stop in the end */
     animation-iteration-count: 1;
-    /* Stay on pause when the animation is finished finished */
     animation-fill-mode: forwards;
-    /* We start paused, we start the animation using javascript */
     animation-play-state: paused;
-    /* We want a linear animation, ease-out is standard */
     animation-timing-function: linear;
 }
 
 @keyframes progressbar-countdown {
     0% {
         width: 100%;
-        background: #0F0;
+        background: rgb(4, 103, 216);
     }
     100% {
         width: 0%;
@@ -144,4 +150,26 @@
 .imgOptionNivel {
     filter: grayscale(100%);
     width: 60%;
+}
+
+.progressbar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.oCartas {
+    margin-top: 0px;    
+}
+
+.login {
+    color: black;
+}
+
+.login:hover {
+    color: rgb(235, 4, 4);
+}
+
+.card-register {
+    color: black;
+    margin: 5px 5px 5px 5px;
 }

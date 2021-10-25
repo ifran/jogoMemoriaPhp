@@ -55,5 +55,14 @@
 
             return $aImagem;
         }
+
+        function selectTodasCartas() 
+        {
+            $sSql = 'SELECT DISTINCT carta_img, carta_id 
+                    FROM carta';
+            
+            $aRetorno = parent::select($sSql);
+            return $aRetorno;
+        }
     }
 ?>

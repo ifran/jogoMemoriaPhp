@@ -5,7 +5,7 @@
     // No local atual da pasta
     include(GAME_PATH_CORE  . 'Database.php');
 
+    include(GAME_PATH_MODEL . 'Nivel.php');
     include(GAME_PATH_MODEL . 'Carta.php');
     include(GAME_PATH_MODEL . 'Ranking.php');
-    include(GAME_PATH_MODEL . 'Nivel.php');
 ?>

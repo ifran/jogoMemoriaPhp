@@ -5,9 +5,30 @@ var iNumCardOld = 0;
 var iCartasViradas = 0; // Verificando se ja tem alguma carta virada
 var aParCorreto = []; // Total de pares encontrados
 
+function controlPower(bDisabled) {
+    bCanUsePower = _$('bCanUsePower').value;
+    
+    if (bCanUsePower == 0) {
+        bCanUsePower = false;
+    }
+
+    if (bCanUsePower) {
+        _$('oBtnPower').disabled = bDisabled;
+    } else {
+        _$('oBtnPower').disabled = true;
+    }
+}
+
+function disablePower() {
+    _$('bCanUsePower').value = 0;
+    controlPower(true);
+}
+
 // Funcao para virar cartas 
-function flipCard(iCard, iPar) 
+function flipCard(iCard, iPar)
 {
+    controlPower(true);
+
     oFront = document.getElementsByClassName('oFront');
     
     for (i = 0; i < oFront.length; i++) {
@@ -23,6 +44,10 @@ function flipCard(iCard, iPar)
 
     if (iCartasViradas > 1) 
     {
+        bLiberarFlip = false;
+    }
+
+    if (_$('oHidCarta_' + iCard + '_' + iPar).value == 1) {
         bLiberarFlip = false;
     }
 
@@ -69,17 +94,30 @@ function checkPares(iCard, iPar)
     else 
     {
         iCartasViradas = 2;
-        if (iParTodo == iPar)
+        if (iParTodo == iPar && iNumCardOld != iCard)
         {
+            _$('oHidCarta_' + iCard + '_' + iPar).value = 1;
+            _$('oHidCarta_' + iNumCardOld + '_' + iParTodo).value = 1;
+            
+            _$('oHidCartaLinha_' + iCard).value = 1;
+            _$('oHidCartaLinha_' + iNumCardOld).value = 1;
+
+            iPontosRodada = parseInt(_$('iPontosRodada').value);
+            iPontosPar = parseInt(_$('iPontosPar').value);
+            iPontosRodada = iPontosPar + iPontosRodada;
+            _$('iPontosRodada').value = iPontosRodada;
+            _$('oPontuacaoRodada').innerHTML = 'Pontua&ccedil;&atilde;o da Rodada: ' + iPontosRodada;
+
             iParTodo = 0;
             iNumCardOld = 0;
             aParCorreto.push(iPar);
             iCartasViradas = 0;
         }
-        else 
+        else
         {
             cartasErradas(iCard);
         }
+        controlPower(false);
     }
 }
 
@@ -109,8 +147,13 @@ function createProgressbar(id, duration, callback)
 // Reiniciando jogo, apos vencer
 function winGame()
 {
+    iNivel = _$('iNivel').value;
+    _$('bCanUsePower').value = 1;
+    _$('iPontosRodada').value = 0;
+    _$('oPontuacaoRodada').innerHTML = 'Pontua&ccedil;&atilde;o da Rodada: ' + 0;
+    controlPower(false);
     aParCorreto = [];
-    ajaxRequest('ajaxSavePoints.php', 'oPontuacao');
+    ajaxRequest('ajaxSavePoints.php?iNivel='+iNivel, 'oPontuacao');
     startGame();
 }
 
@@ -120,8 +163,8 @@ function loseGame()
     iPersonagem = _$('iPersonagem').value;
     iNivel      = _$('iNivel').value;
 
-    ajaxRequest('ajaxSavePoints.php?bLose=1&iNivel=' + iNivel + '&iPersonagem=' + iPersonagem, 'oPontuacao');
     alert("Perdeu");
+    _$("oFormEndgame").submit();
 }
 
 // Iniciando jogo
@@ -129,6 +172,7 @@ function startGame()
 {
     iDuration = _$('iDuration').value;
     sUrl = 'ajaxInsertCartas.php?iNivel=' + _$('iNivel').value;
+    _$('iNumCartas').focus();
     ajaxRequest(sUrl, 'oDivPrinc');
 
     createProgressbar('progressbar1', iDuration + 's', function() {
@@ -137,52 +181,3 @@ function startGame()
 }
 
 window.startGame();
-
-/**********************
- * Criando poderes INI 
-***********************/
-function earthPower() 
-{
-    oFront = document.getElementsByClassName('oFront');
-    
-    for (i = 0; i < oFront.length; i++) {
-        oFront[i].style.display = '';
-    }
-    
-    iLinha = document.getElementById('iNumCartas').value;
-    for (i = 1; i <= iLinha; i++) {
-        var card = document.querySelector(".card__inner"+i);
-        card.classList.toggle('is-flipped');
-    }
-
-    setTimeout (function()
-    {
-        for (i = 1; i <= iLinha; i++) {
-            var card = document.querySelector(".card__inner"+i);
-            card.classList.toggle('is-flipped');
-        }
-    }, 1500);
-}
-
-function firePower() 
-{
-    oFront = document.getElementsByClassName('oFront');
-    
-    for (i = 0; i < oFront.length; i++) {
-        oFront[i].style.display = '';
-    }
-    
-    iLinha = document.getElementById('iNumCartas').value;
-    for (i = 1; i <= iLinha; i++) {
-        var card = document.querySelector(".card__inner"+i);
-        card.classList.toggle('is-flipped');
-    }
-
-    setTimeout (function()
-    {
-        for (i = 1; i <= iLinha; i++) {
-            var card = document.querySelector(".card__inner"+i);
-            card.classList.toggle('is-flipped');
-        }
-    }, 1500);
-}

@@ -2,8 +2,6 @@
     header('Content-Type: text/html; charset=utf-8');
     include('Application/core/Inc.php');
     $iV = rand(1000,2000);
-
-    echo Nivel::Points(1);
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -19,6 +17,7 @@
 
         <script src="<?=GAME_PATH_JS?>bootstrap.bundle.min.js"></script>
         <script src="<?=GAME_PATH_JS?>genericFuncs.js?v=<?=$iV?>" type="text/javascript"></script>
+        <script src="<?=GAME_PATH_JS?>power.js?v=<?=$iV?>" type="text/javascript"></script>
 
         <style>
             .bd-placeholder-img {
@@ -43,9 +42,12 @@
                 <div>
                     <a href="Home"><h3 class="float-md-start mb-0">Home</h3></a>
                     <nav class="nav nav-masthead justify-content-center float-md-end">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        <a class="nav-link" href="#">Features</a>
-                        <a class="nav-link" href="#">Contact</a>
+                        <?php if (!empty($_SESSION['iAdm'])) { ?>
+                            <a class="nav-link login" href="Logout">Logout</a>
+                            <a class="nav-link login" href="RegisterCard">Gerenciar Cartas</a>
+                        <?php } else { ?>
+                            <a class="nav-link login" href="Login">Login</a>
+                        <?php } ?>
                     </nav>
                 </div>
             </header>

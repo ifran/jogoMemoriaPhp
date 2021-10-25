@@ -6,12 +6,12 @@
             parent::__construct(DB_SGBD . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
         }
 
-        function executeQuery($sSql) 
+        function executeQuery($sSql)
         {
             $this->exec($sSql);
         }
 
-        function select($sSql) 
+        function select($sSql)
         {
             $oReturn = $this->query($sSql);
             

@@ -6,5 +6,8 @@ ReWriteRule ^Home$ index.php [NC]
 ReWriteRule ^Game index.php?sPage=Game [NC]
 ReWriteRule ^Settings index.php?sPage=Settings [NC]
 ReWriteRule ^Ranking index.php?sPage=Ranking [NC]
+ReWriteRule ^End index.php?sPage=End [NC]
+ReWriteRule ^Login index.php?sPage=Login [NC]
+ReWriteRule ^Logout index.php?sPage=Login&sLogout=1 [NC]
+ReWriteRule ^RegisterCard index.php?sPage=RegisterCard [NC]
 
-ErrorDocument 404 http://localhost/Jogo/

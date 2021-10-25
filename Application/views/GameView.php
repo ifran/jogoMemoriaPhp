@@ -1,7 +1,7 @@
 <?php
     $_SESSION['iPoints'] = 0;
 
-    if (empty($_POST)) {
+    if (empty($_POST['iNivel']) OR empty($_POST['iPersonagem'])) {
         header('location:Home');
         die();
     }
@@ -19,19 +19,15 @@
         $sFunctionPerso = 'earthPower();';
     }
 
-    if ($iNivel == 1) {
-        $sNivel    = 'F&aacute;cil';
-        $iDuration = NIVEL_FACIL_TEMPO;
-    } else if ($iNivel == 2) {
-        $sNivel    = 'M&eacute;dio';
-        $iDuration = NIVEL_MEDIO_TEMPO;
-    } else if ($iNivel == 3) {
-        $sNivel    = 'Dif&iacute;cil';
-        $iDuration = NIVEL_DIFICIL_TEMPO;
-    }
-
+    $sNivel     = Nivel::name($iNivel);
+    $iPontosPar = Nivel::pontosPar($iNivel);
+    $iDuration  = Nivel::tempo($iNivel);
+    $iParCol    = Nivel::par($iNivel);
+    $sDivMain   = Nivel::divName($iNivel);
+ 
     $oCarta = new Carta();
     $aImagem = $oCarta->selectCartas($iNivel);
+    
     $aNivel  = $oCarta->nivelValor($iNivel);
     $iParCorreto  = $aNivel['iParCorreto'];
     $iNumCartas = $iParCorreto * 2;
@@ -52,20 +48,25 @@
     }
     <?php $iLinha++; } ?> 
 </style>
-<div class="album py-5 bg-light mainDivEasy bgBlack">
-    <h1 style="color:black"><?=$sNivel?></h1>
+<div class="album py-5 bg-light bgBlack">
+    <button onclick="<?=$sFunctionPerso?>" id="oBtnPower">Poder</button>
     <div id="progressbar1" class="progressbar"></div>
-    <button onclick="<?=$sFunctionPerso?>">Poder - <?=$sFunctionPerso?></button>
     <div class="container">
         <!-- <button style="height:50px;width:500px" onclick="earthPower()">Poder de terra</button> -->
-        <div id="oPontuacao" style="color:black;"></div>
-        <div class="row row-cols-2 row-cols-sm-5 row-cols-md-5 g-3" id="oDivPrinc">
+        <div id="oPontuacao" style="color:black;">Pontua&ccedil;&atilde;o Total: 0</div>
+        <div id="oPontuacaoRodada" style="color:black;">Pontua&ccedil;&atilde;o da Rodada: 0</div>
+        <div class="row row-cols-2 row-cols-sm-5 row-cols-md-<?=$iParCol?> g-3 <?=$sDivMain?>" id="oDivPrinc">
         </div>
         <input id="iNumCartas" value="<?=$iNumCartas?>" type="hidden">
         <input id="iParCorreto" value="<?=$iParCorreto?>" type="hidden">
     </div>
 </div>
-<input type="hidden" value=<?=$iPersonagem?> id="iPersonagem">
-<input type="hidden" value=<?=$iNivel?> id="iNivel">
-<input type="hidden" value=<?=$iDuration?> id="iDuration">
+<form method="post" id="oFormEndgame" action="End">
+    <input type="hidden" value="<?=$iPersonagem?>" id="iPersonagem" name="iPersonagem">
+    <input type="hidden" value="<?=$iNivel?>" id="iNivel" name="iNivel">
+    <input type="hidden" value="<?=$iDuration?>" id="iDuration" name="iDuration">
+    <input type="hidden" value="<?=$iPontosPar?>" id="iPontosPar" name="iPontosPar">
+    <input type="hidden" value="1" id="bCanUsePower" name="bCanUsePower">
+    <input type="hidden" value="0" id="iPontosRodada" name="iPontosRodada">
+</form>
 <script src="<?=GAME_PATH_JS?>inGame.js?v=<?=$iV?>" type="text/javascript"></script>

@@ -36,6 +36,16 @@
             $sRankingName = utf8_encode($oRankingItem['ranking_name']);
             $sRankingPontos = $oRankingItem['ranking_pontos'];
             $sRankingPersonagem = utf8_encode($oRankingItem['ranking_personagem']);
+
+            if ($sRankingPersonagem == 1) {
+                $sRankingPersonagem = '&Aacute;gua';
+            } else if ($sRankingPersonagem == 2) {
+                $sRankingPersonagem = "Ar";
+            } else if ($sRankingPersonagem == 3) {
+                $sRankingPersonagem = "Fogo";
+            } else if ($sRankingPersonagem == 4) {
+                $sRankingPersonagem = "Terra";
+            }
             $iLugar++;
             ?>
                 <tr>
